@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Flow - Search Algorithm Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>DSA Flow</h1>
+        <p class="subtitle">Search Algorithm Visualizer</p>
+        
+        <!-- Array Controls -->
+        <div class="controls">
+            <div class="array-controls">
+                <label for="arraySize">Array Size:</label>
+                <input type="range" id="arraySize" min="5" max="20" value="10">
+                <button onclick="generateNewArray()">Generate New Array</button>
+            </div>
+            
+            <div class="search-controls">
+                <label for="target">Target Value:</label>
+                <input type="number" id="target" value="5">
+                <button onclick="startSearch('linear')" class="search-btn">Linear Search</button>
+                <button onclick="startSearch('binary')" class="search-btn">Binary Search</button>
+            </div>
+        </div>
+
+        <!-- Visualization Area -->
+        <div class="visualizer">
+            <div id="array-container"></div>
+            <div id="info-panel">
+                <h3>Current Step: <span id="step-info">-</span></h3>
+                <h3>Comparisons: <span id="comparisons">0</span></h3>
+            </div>
+        </div>
+
+        <!-- Algorithm Information -->
+        <div class="algorithm-info">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('notes')">Notes</button>
+                <button class="tab-btn" onclick="showTab('practice')">Practice</button>
+                <button class="tab-btn" onclick="showTab('leetcode')">LeetCode Problems</button>
+            </div>
+
+            <div id="notes" class="tab-content active">
+                <div class="algorithm-section">
+                    <h3>Linear Search</h3>
+                    <ul>
+                        <li>Time Complexity: O(n)</li>
+                        <li>Space Complexity: O(1)</li>
+                        <li>Best for: Small arrays or unsorted data</li>
+                        <li>Process: Checks each element sequentially</li>
+                    </ul>
+                </div>
+                <div class="algorithm-section">
+                    <h3>Binary Search</h3>
+                    <ul>
+                        <li>Time Complexity: O(log n)</li>
+                        <li>Space Complexity: O(1)</li>
+                        <li>Requires: Sorted array</li>
+                        <li>Process: Divides search interval in half repeatedly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="practice" class="tab-content">
+                <div class="practice-problems">
+                    <h3>Practice Questions</h3>
+                    <div class="question">
+                        <p>Q1: What is the time complexity of binary search?</p>
+                        <button onclick="checkAnswer(1, 'O(log n)')">O(log n)</button>
+                        <button onclick="checkAnswer(1, 'O(n)')">O(n)</button>
+                        <button onclick="checkAnswer(1, 'O(1)')">O(1)</button>
+                    </div>
+                    <div class="question">
+                        <p>Q2: When should you use linear search over binary search?</p>
+                        <button onclick="checkAnswer(2, 'unsorted')">When array is unsorted</button>
+                        <button onclick="checkAnswer(2, 'sorted')">When array is sorted</button>
+                        <button onclick="checkAnswer(2, 'large')">When array is large</button>
+                    </div>
+                    <div class="question">
+                        <p>Q3: What is the time complexity of linear search?</p>
+                        <button onclick="checkAnswer(3, 'O(n)')">O(n)</button>
+                        <button onclick="checkAnswer(3, 'O(log n)')">O(log n)</button>
+                        <button onclick="checkAnswer(3, 'O(n²)')">O(n²)</button>
+                    </div>
+                    <div class="question">
+                        <p>Q4: Which condition is required for binary search to work?</p>
+                        <button onclick="checkAnswer(4, 'sorted')">Array must be sorted</button>
+                        <button onclick="checkAnswer(4, 'unique')">Elements must be unique</button>
+                        <button onclick="checkAnswer(4, 'positive')">Numbers must be positive</button>
+                    </div>
+                    <div class="question">
+                        <p>Q5: In binary search, which element is checked first?</p>
+                        <button onclick="checkAnswer(5, 'middle')">Middle element</button>
+                        <button onclick="checkAnswer(5, 'first')">First element</button>
+                        <button onclick="checkAnswer(5, 'last')">Last element</button>
+                    </div>
+                    <div class="question">
+                        <p>Q6: Can linear search find all occurrences of an element?</p>
+                        <button onclick="checkAnswer(6, 'true')">Yes, by continuing the search</button>
+                        <button onclick="checkAnswer(6, 'false')">No, it stops at first match</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="leetcode" class="tab-content">
+                <div class="leetcode-problems">
+                    <h3>Binary Search LeetCode Problems</h3>
+                    <div class="problem-list">
+                        <!-- Problems will be loaded dynamically via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
