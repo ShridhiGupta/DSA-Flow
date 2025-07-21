@@ -89,5 +89,3 @@ Made with ❤️ by [Shridhi Gupta](https://github.com/ShridhiGupta)
 
 Give this repo a ⭐ if you find it helpful!
 Feel free to open issues or contribute.
-
-```
