@@ -9,6 +9,30 @@ export default function Algorithms() {
 
   const algorithms = [
     {
+      id: 'linear-search',
+      name: 'Linear Search',
+      category: 'searching',
+      difficulty: 'Beginner',
+      description: 'Sequential search through elements until target is found',
+      timeComplexity: 'O(n)',
+      spaceComplexity: 'O(1)',
+      icon: 'ri-search-line',
+      color: 'blue',
+      applications: ['Unsorted arrays', 'Small datasets', 'Simple searching']
+    },
+    {
+      id: 'binary-search',
+      name: 'Binary Search',
+      category: 'searching',
+      difficulty: 'Intermediate',
+      description: 'Divide and conquer search in sorted arrays',
+      timeComplexity: 'O(log n)',
+      spaceComplexity: 'O(1)',
+      icon: 'ri-focus-line',
+      color: 'green',
+      applications: ['Sorted arrays', 'Database queries', 'Range searches']
+    },
+    {
       id: 'bfs',
       name: 'Breadth-First Search',
       category: 'graph',
@@ -84,6 +108,7 @@ export default function Algorithms() {
 
   const categories = [
     { id: 'all', name: 'All Algorithms', icon: 'ri-apps-line' },
+    { id: 'searching', name: 'Searching Algorithms', icon: 'ri-search-line' },
     { id: 'graph', name: 'Graph Algorithms', icon: 'ri-share-line' }
   ];
 

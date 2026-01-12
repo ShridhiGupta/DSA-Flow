@@ -10,6 +10,7 @@ export default function ArraysPage() {
   const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90]);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const [operation, setOperation] = useState('access');
+  const [selectedLanguage, setSelectedLanguage] = useState('javascript');
 
   const operations = [
     {
@@ -39,6 +40,20 @@ export default function ArraysPage() {
       description: 'Search for element in unsorted array',
       complexity: 'O(n)',
       steps: ['Start from index 0', 'Compare each element', 'Return index if found']
+    },
+    {
+      id: 'reverse',
+      name: 'Reverse Array',
+      description: 'Reverse the order of elements in array',
+      complexity: 'O(n)',
+      steps: ['Set left = 0, right = n-1', 'Swap arr[left] and arr[right]', 'Move pointers inward', 'Continue until left >= right']
+    },
+    {
+      id: 'rotate',
+      name: 'Rotate Array',
+      description: 'Rotate array by k positions to the right',
+      complexity: 'O(n)',
+      steps: ['Calculate k = k % n', 'Reverse entire array', 'Reverse first k elements', 'Reverse remaining n-k elements']
     }
   ];
 
@@ -61,6 +76,12 @@ export default function ArraysPage() {
         break;
       case 'search':
         await animateSearch();
+        break;
+      case 'reverse':
+        await animateReverse();
+        break;
+      case 'rotate':
+        await animateRotate();
         break;
     }
 
@@ -132,6 +153,76 @@ export default function ArraysPage() {
 
       await new Promise(resolve => setTimeout(resolve, 800));
     }
+  };
+
+  const animateReverse = async () => {
+    const arr = [...array];
+    let left = 0;
+    let right = arr.length - 1;
+
+    setCurrentStep(0);
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    while (left < right) {
+      setCurrentStep(1);
+      setHighlightIndex(left);
+      
+      // Swap elements
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      setArray([...arr]);
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      left++;
+      right--;
+      
+      if (left >= right) {
+        setCurrentStep(2);
+      }
+    }
+    
+    setCurrentStep(3);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  };
+
+  const animateRotate = async () => {
+    const arr = [...array];
+    const k = 2; // Rotate by 2 positions
+    const n = arr.length;
+    
+    setCurrentStep(0);
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Step 1: Reverse entire array
+    setCurrentStep(1);
+    for (let i = 0; i < n / 2; i++) {
+      [arr[i], arr[n - 1 - i]] = [arr[n - 1 - i], arr[i]];
+      setArray([...arr]);
+      setHighlightIndex(i);
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+    
+    // Step 2: Reverse first k elements
+    setCurrentStep(2);
+    for (let i = 0; i < k / 2; i++) {
+      [arr[i], arr[k - 1 - i]] = [arr[k - 1 - i], arr[i]];
+      setArray([...arr]);
+      setHighlightIndex(i);
+      await new Promise(resolve => setTimeout(resolve, 400));
+    }
+    
+    // Step 3: Reverse remaining n-k elements
+    setCurrentStep(3);
+    for (let i = k; i < k + (n - k) / 2; i++) {
+      const endIndex = n - 1 - (i - k);
+      [arr[i], arr[endIndex]] = [arr[endIndex], arr[i]];
+      setArray([...arr]);
+      setHighlightIndex(i);
+      await new Promise(resolve => setTimeout(resolve, 400));
+    }
+    
+    setCurrentStep(4);
+    await new Promise(resolve => setTimeout(resolve, 1000));
   };
 
   const resetArray = () => {
@@ -279,10 +370,27 @@ export default function ArraysPage() {
 
             {/* Code Visualization */}
             <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Code Implementation</h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Code Implementation</h3>
+                <div className="flex space-x-2">
+                  {['javascript', 'python', 'java', 'cpp'].map((lang) => (
+                    <button
+                      key={lang}
+                      onClick={() => setSelectedLanguage(lang)}
+                      className={`px-3 py-1 rounded text-sm font-medium ${
+                        selectedLanguage === lang
+                          ? 'bg-indigo-600 text-white'
+                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      }`}
+                    >
+                      {lang === 'javascript' ? 'JavaScript' : lang === 'cpp' ? 'C++' : lang.charAt(0).toUpperCase() + lang.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
                 <pre className="text-green-400 text-sm">
-                  {operation === 'access' && `// Array Access - O(1)
+                  {operation === 'access' && selectedLanguage === 'javascript' && `// JavaScript Array Access - O(1)
 function accessElement(arr, index) {
     if (index < 0 || index >= arr.length) {
         return null; // Index out of bounds
@@ -293,7 +401,47 @@ function accessElement(arr, index) {
 // Example usage
 let numbers = [64, 34, 25, 12, 22, 11, 90];
 let element = accessElement(numbers, 3); // Returns 12`}
-                  {operation === 'insert' && `// Array Insertion - O(n)
+                  {operation === 'access' && selectedLanguage === 'python' && `# Python Array Access - O(1)
+def access_element(arr, index):
+    if index < 0 or index >= len(arr):
+        return None  # Index out of bounds
+    return arr[index]  # Direct memory access
+
+# Example usage
+numbers = [64, 34, 25, 12, 22, 11, 90]
+element = access_element(numbers, 3)  # Returns 12`}
+                  {operation === 'access' && selectedLanguage === 'java' && `// Java Array Access - O(1)
+public class ArrayAccess {
+    public static Integer accessElement(int[] arr, int index) {
+        if (index < 0 || index >= arr.length) {
+            return null; // Index out of bounds
+        }
+        return arr[index]; // Direct memory access
+    }
+    
+    public static void main(String[] args) {
+        int[] numbers = {64, 34, 25, 12, 22, 11, 90};
+        Integer element = accessElement(numbers, 3); // Returns 12
+    }
+}`}
+                  {operation === 'access' && selectedLanguage === 'cpp' && `// C++ Array Access - O(1)
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int accessElement(const vector<int>& arr, int index) {
+    if (index < 0 || index >= arr.size()) {
+        return -1; // Index out of bounds
+    }
+    return arr[index]; // Direct memory access
+}
+
+int main() {
+    vector<int> numbers = {64, 34, 25, 12, 22, 11, 90};
+    int element = accessElement(numbers, 3); // Returns 12
+    return 0;
+}`}
+                  {operation === 'insert' && selectedLanguage === 'javascript' && `// JavaScript Array Insertion - O(n)
 function insertElement(arr, index, value) {
     if (index < 0 || index > arr.length) {
         return false;
@@ -311,7 +459,73 @@ function insertElement(arr, index, value) {
 // Example usage
 let numbers = [64, 34, 25, 12, 22, 11, 90];
 insertElement(numbers, 2, 99); // Insert 99 at index 2`}
-                  {operation === 'delete' && `// Array Deletion - O(n)
+                  {operation === 'insert' && selectedLanguage === 'python' && `# Python Array Insertion - O(n)
+def insert_element(arr, index, value):
+    if index < 0 or index > len(arr):
+        return False
+    
+    # Shift elements to the right
+    arr.append(None)  # Increase array size
+    for i in range(len(arr) - 1, index, -1):
+        arr[i] = arr[i - 1]
+    
+    arr[index] = value  # Insert new element
+    return True
+
+# Example usage
+numbers = [64, 34, 25, 12, 22, 11, 90]
+insert_element(numbers, 2, 99)  # Insert 99 at index 2`}
+                  {operation === 'insert' && selectedLanguage === 'java' && `// Java Array Insertion - O(n)
+import java.util.Arrays;
+
+public class ArrayInsertion {
+    public static boolean insertElement(int[] arr, int index, int value) {
+        if (index < 0 || index > arr.length) {
+            return false;
+        }
+        
+        // Create new array with increased size
+        int[] newArr = new int[arr.length + 1];
+        
+        // Copy elements before insertion point
+        for (int i = 0; i < index; i++) {
+            newArr[i] = arr[i];
+        }
+        
+        // Insert new element
+        newArr[index] = value;
+        
+        // Copy remaining elements
+        for (int i = index; i < arr.length; i++) {
+            newArr[i + 1] = arr[i];
+        }
+        
+        // Copy back to original array (if needed)
+        System.arraycopy(newArr, 0, arr, 0, newArr.length);
+        return true;
+    }
+}`}
+                  {operation === 'insert' && selectedLanguage === 'cpp' && `// C++ Array Insertion - O(n)
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool insertElement(vector<int>& arr, int index, int value) {
+    if (index < 0 || index > arr.size()) {
+        return false;
+    }
+    
+    // Insert element at specified position
+    arr.insert(arr.begin() + index, value);
+    return true;
+}
+
+int main() {
+    vector<int> numbers = {64, 34, 25, 12, 22, 11, 90};
+    insertElement(numbers, 2, 99); // Insert 99 at index 2
+    return 0;
+}`}
+                  {operation === 'delete' && selectedLanguage === 'javascript' && `// JavaScript Array Deletion - O(n)
 function deleteElement(arr, index) {
     if (index < 0 || index >= arr.length) {
         return false;
@@ -329,7 +543,60 @@ function deleteElement(arr, index) {
 // Example usage
 let numbers = [64, 34, 25, 12, 22, 11, 90];
 deleteElement(numbers, 1); // Remove element at index 1`}
-                  {operation === 'search' && `// Linear Search - O(n)
+                  {operation === 'delete' && selectedLanguage === 'python' && `# Python Array Deletion - O(n)
+def delete_element(arr, index):
+    if index < 0 or index >= len(arr):
+        return False
+    
+    # Shift elements to the left
+    for i in range(index, len(arr) - 1):
+        arr[i] = arr[i + 1]
+    
+    # Remove last element
+    arr.pop()
+    return True
+
+# Example usage
+numbers = [64, 34, 25, 12, 22, 11, 90]
+delete_element(numbers, 1)  # Remove element at index 1`}
+                  {operation === 'delete' && selectedLanguage === 'java' && `// Java Array Deletion - O(n)
+public class ArrayDeletion {
+    public static boolean deleteElement(int[] arr, int index) {
+        if (index < 0 || index >= arr.length) {
+            return false;
+        }
+
+        // Shift elements to the left
+        for (int i = index; i < arr.length - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+
+        // Note: In Java, arrays have fixed size
+        // You would typically use ArrayList for dynamic operations
+        return true;
+    }
+}`}
+                  {operation === 'delete' && selectedLanguage === 'cpp' && `// C++ Array Deletion - O(n)
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool deleteElement(vector<int>& arr, int index) {
+    if (index < 0 || index >= arr.size()) {
+        return false;
+    }
+    
+    // Remove element at specified position
+    arr.erase(arr.begin() + index);
+    return true;
+}
+
+int main() {
+    vector<int> numbers = {64, 34, 25, 12, 22, 11, 90};
+    deleteElement(numbers, 1); // Remove element at index 1
+    return 0;
+}`}
+                  {operation === 'search' && selectedLanguage === 'javascript' && `// JavaScript Linear Search - O(n)
 function linearSearch(arr, target) {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] === target) {
@@ -342,6 +609,233 @@ function linearSearch(arr, target) {
 // Example usage
 let numbers = [64, 34, 25, 12, 22, 11, 90];
 let index = linearSearch(numbers, 25); // Returns 2`}
+                  {operation === 'search' && selectedLanguage === 'python' && `# Python Linear Search - O(n)
+def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i  # Return index if found
+    return -1  # Element not found
+
+# Example usage
+numbers = [64, 34, 25, 12, 22, 11, 90]
+index = linear_search(numbers, 25)  # Returns 2`}
+                  {operation === 'search' && selectedLanguage === 'java' && `// Java Linear Search - O(n)
+public class LinearSearch {
+    public static int linearSearch(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == target) {
+                return i; // Return index if found
+            }
+        }
+        return -1; // Element not found
+    }
+    
+    public static void main(String[] args) {
+        int[] numbers = {64, 34, 25, 12, 22, 11, 90};
+        int index = linearSearch(numbers, 25); // Returns 2
+    }
+}`}
+                  {operation === 'search' && selectedLanguage === 'cpp' && `// C++ Linear Search - O(n)
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int linearSearch(const vector<int>& arr, int target) {
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] == target) {
+            return i; // Return index if found
+        }
+    }
+    return -1; // Element not found
+}
+
+int main() {
+    vector<int> numbers = {64, 34, 25, 12, 22, 11, 90};
+    int index = linearSearch(numbers, 25); // Returns 2
+    return 0;
+}`}
+                  {operation === 'reverse' && selectedLanguage === 'javascript' && `// JavaScript Array Reversal - O(n)
+function reverseArray(arr) {
+    let left = 0;
+    let right = arr.length - 1;
+    
+    while (left < right) {
+        // Swap elements
+        [arr[left], arr[right]] = [arr[right], arr[left]];
+        left++;
+        right--;
+    }
+    return arr;
+}
+
+// Example usage
+let numbers = [64, 34, 25, 12, 22, 11, 90];
+reverseArray(numbers); // [90, 11, 22, 12, 25, 34, 64]`}
+                  {operation === 'reverse' && selectedLanguage === 'python' && `# Python Array Reversal - O(n)
+def reverse_array(arr):
+    left = 0
+    right = len(arr) - 1
+    
+    while left < right:
+        # Swap elements
+        arr[left], arr[right] = arr[right], arr[left]
+        left += 1
+        right -= 1
+    
+    return arr
+
+# Example usage
+numbers = [64, 34, 25, 12, 22, 11, 90]
+reverse_array(numbers)  # [90, 11, 22, 12, 25, 34, 64]`}
+                  {operation === 'reverse' && selectedLanguage === 'java' && `// Java Array Reversal - O(n)
+public class ArrayReversal {
+    public static void reverseArray(int[] arr) {
+        int left = 0;
+        int right = arr.length - 1;
+        
+        while (left < right) {
+            // Swap elements
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+    
+    public static void main(String[] args) {
+        int[] numbers = {64, 34, 25, 12, 22, 11, 90};
+        reverseArray(numbers);
+        // Result: [90, 11, 22, 12, 25, 34, 64]
+    }
+}`}
+                  {operation === 'reverse' && selectedLanguage === 'cpp' && `// C++ Array Reversal - O(n)
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void reverseArray(vector<int>& arr) {
+    int left = 0;
+    int right = arr.size() - 1;
+    
+    while (left < right) {
+        // Swap elements
+        swap(arr[left], arr[right]);
+        left++;
+        right--;
+    }
+}
+
+int main() {
+    vector<int> numbers = {64, 34, 25, 12, 22, 11, 90};
+    reverseArray(numbers);
+    // Result: [90, 11, 22, 12, 25, 34, 64]
+    return 0;
+}`}
+                  {operation === 'rotate' && selectedLanguage === 'javascript' && `// JavaScript Array Rotation - O(n)
+function rotateArray(arr, k) {
+    const n = arr.length;
+    k = k % n; // Handle k > n
+    
+    // Reverse entire array
+    reverse(arr, 0, n - 1);
+    // Reverse first k elements
+    reverse(arr, 0, k - 1);
+    // Reverse remaining elements
+    reverse(arr, k, n - 1);
+    
+    return arr;
+}
+
+function reverse(arr, start, end) {
+    while (start < end) {
+        [arr[start], arr[end]] = [arr[end], arr[start]];
+        start++;
+        end--;
+    }
+}
+
+// Example usage
+let numbers = [64, 34, 25, 12, 22, 11, 90];
+rotateArray(numbers, 2); // [11, 90, 64, 34, 25, 12, 22]`}
+                  {operation === 'rotate' && selectedLanguage === 'python' && `# Python Array Rotation - O(n)
+def rotate_array(arr, k):
+    n = len(arr)
+    k = k % n  # Handle k > n
+    
+    # Reverse entire array
+    reverse(arr, 0, n - 1)
+    # Reverse first k elements
+    reverse(arr, 0, k - 1)
+    # Reverse remaining elements
+    reverse(arr, k, n - 1)
+    
+    return arr
+
+def reverse(arr, start, end):
+    while start < end:
+        arr[start], arr[end] = arr[end], arr[start]
+        start += 1
+        end -= 1
+
+# Example usage
+numbers = [64, 34, 25, 12, 22, 11, 90]
+rotate_array(numbers, 2)  # [11, 90, 64, 34, 25, 12, 22]`}
+                  {operation === 'rotate' && selectedLanguage === 'java' && `// Java Array Rotation - O(n)
+public class ArrayRotation {
+    public static void rotateArray(int[] arr, int k) {
+        int n = arr.length;
+        k = k % n; // Handle k > n
+        
+        // Reverse entire array
+        reverse(arr, 0, n - 1);
+        // Reverse first k elements
+        reverse(arr, 0, k - 1);
+        // Reverse remaining elements
+        reverse(arr, k, n - 1);
+    }
+    
+    private static void reverse(int[] arr, int start, int end) {
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    
+    public static void main(String[] args) {
+        int[] numbers = {64, 34, 25, 12, 22, 11, 90};
+        rotateArray(numbers, 2);
+        // Result: [11, 90, 64, 34, 25, 12, 22]
+    }
+}`}
+                  {operation === 'rotate' && selectedLanguage === 'cpp' && `// C++ Array Rotation - O(n)
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void rotateArray(vector<int>& arr, int k) {
+    int n = arr.size();
+    k = k % n; // Handle k > n
+    
+    // Reverse entire array
+    reverse(arr.begin(), arr.end());
+    // Reverse first k elements
+    reverse(arr.begin(), arr.begin() + k);
+    // Reverse remaining elements
+    reverse(arr.begin() + k, arr.end());
+}
+
+int main() {
+    vector<int> numbers = {64, 34, 25, 12, 22, 11, 90};
+    rotateArray(numbers, 2);
+    // Result: [11, 90, 64, 34, 25, 12, 22]
+    return 0;
+}`}
                 </pre>
               </div>
             </div>
@@ -370,6 +864,14 @@ let index = linearSearch(numbers, 25); // Returns 2`}
                     </div>
                     <div className="flex justify-between">
                       <span>Delete:</span>
+                      <span className="font-mono bg-orange-100 text-orange-800 px-2 py-1 rounded">O(n)</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Reverse:</span>
+                      <span className="font-mono bg-orange-100 text-orange-800 px-2 py-1 rounded">O(n)</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Rotate:</span>
                       <span className="font-mono bg-orange-100 text-orange-800 px-2 py-1 rounded">O(n)</span>
                     </div>
                   </div>
