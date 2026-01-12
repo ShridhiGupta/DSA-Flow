@@ -1,10 +1,60 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function LinearSearchAlgorithm() {
+export default function LinearSearchPage() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90, 88, 76, 50]);
+  const [target, setTarget] = useState(22);
+  const [highlightIndex, setHighlightIndex] = useState(-1);
+  const [foundIndex, setFoundIndex] = useState(-1);
   const [selectedLanguage, setSelectedLanguage] = useState('javascript');
+
+  const steps = [
+    'Start from the first element (index 0)',
+    'Compare current element with target',
+    'If match found, return index',
+    'If no match, move to next element',
+    'Continue until end of array'
+  ];
+
+  const runAnimation = async () => {
+    setIsAnimating(true);
+    setCurrentStep(0);
+    setHighlightIndex(-1);
+    setFoundIndex(-1);
+
+    for (let i = 0; i < array.length; i++) {
+      setHighlightIndex(i);
+      setCurrentStep(Math.min(i + 1, steps.length - 1));
+
+      if (array[i] === target) {
+        setFoundIndex(i);
+        setCurrentStep(2);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        break;
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 800));
+    }
+
+    if (foundIndex === -1) {
+      setCurrentStep(4);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+    setIsAnimating(false);
+  };
+
+  const resetArray = () => {
+    setArray([64, 34, 25, 12, 22, 11, 90, 88, 76, 50]);
+    setTarget(22);
+    setHighlightIndex(-1);
+    setFoundIndex(-1);
+    setCurrentStep(0);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -18,8 +68,8 @@ export default function LinearSearchAlgorithm() {
               </h1>
             </Link>
             <nav className="flex items-center space-x-4">
-              <Link href="/algorithms" className="text-gray-600 hover:text-indigo-600 cursor-pointer">
-                ← Back to Algorithms
+              <Link href="/data-structures/searching" className="text-gray-600 hover:text-indigo-600 cursor-pointer">
+                ← Back to Searching
               </Link>
             </nav>
           </div>
@@ -34,29 +84,116 @@ export default function LinearSearchAlgorithm() {
               <i className="ri-search-line text-2xl text-blue-600"></i>
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">Linear Search Algorithm</h1>
+              <h1 className="text-4xl font-bold text-gray-900">Linear Search</h1>
               <p className="text-gray-600">Sequential search through elements until target is found</p>
             </div>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Algorithm Overview */}
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithm Overview</h2>
-              <div className="prose text-gray-600">
-                <p className="mb-4">
-                  Linear Search is the simplest searching algorithm that sequentially checks each element in a list until a match is found or the whole list has been searched.
-                </p>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">How it works:</h3>
-                <ol className="list-decimal list-inside space-y-2">
-                  <li>Start from the first element of the array</li>
-                  <li>Compare each element with the target value</li>
-                  <li>If a match is found, return the index</li>
-                  <li>If no match is found after checking all elements, return -1</li>
-                </ol>
+          {/* Visualization Panel */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Interactive Visualization</h2>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={runAnimation}
+                    disabled={isAnimating}
+                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50 cursor-pointer whitespace-nowrap"
+                  >
+                    {isAnimating ? 'Searching...' : 'Start Search'}
+                  </button>
+                  <button
+                    onClick={resetArray}
+                    className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 cursor-pointer whitespace-nowrap"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+              {/* Target Input */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Target Value: {target}
+                </label>
+                <input
+                  type="range"
+                  min="10"
+                  max="100"
+                  step="1"
+                  value={target}
+                  onChange={(e) => setTarget(Number(e.target.value))}
+                  disabled={isAnimating}
+                  className="w-full"
+                />
+              </div>
+
+              {/* Array Visualization */}
+              <div className="mb-8">
+                <div className="flex items-center justify-center space-x-2 mb-4 flex-wrap">
+                  {array.map((value, index) => (
+                    <div key={`${index}-${value}`} className="flex flex-col items-center mb-2">
+                      <div
+                        className={`w-14 h-14 flex items-center justify-center border-2 rounded-lg font-bold text-lg transition-all duration-500 ${
+                          foundIndex === index
+                            ? 'bg-green-600 text-white border-green-600 scale-110'
+                            : highlightIndex === index
+                            ? 'bg-yellow-500 text-white border-yellow-500 scale-110'
+                            : 'bg-white text-gray-700 border-gray-300'
+                        }`}
+                      >
+                        {value}
+                      </div>
+                      <div className="text-xs text-gray-500 mt-1">[{index}]</div>
+                    </div>
+                  ))}
+                </div>
+
+                {foundIndex !== -1 && (
+                  <div className="text-center text-green-600 font-semibold">
+                    Found {target} at index {foundIndex}!
+                  </div>
+                )}
+
+                {foundIndex === -1 && !isAnimating && currentStep === 4 && (
+                  <div className="text-center text-red-600 font-semibold">
+                    {target} not found in the array
+                  </div>
+                )}
+              </div>
+
+              {/* Step-by-Step Display */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Algorithm Steps</h3>
+                <div className="space-y-2">
+                  {steps.map((step, index) => (
+                    <div
+                      key={index}
+                      className={`flex items-center p-2 rounded-lg ${
+                        currentStep === index && isAnimating
+                          ? 'bg-indigo-100 text-indigo-800'
+                          : currentStep > index && isAnimating
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-white text-gray-700'
+                      }`}
+                    >
+                      <div
+                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mr-3 ${
+                          currentStep === index && isAnimating
+                            ? 'bg-indigo-600 text-white'
+                            : currentStep > index && isAnimating
+                            ? 'bg-green-600 text-white'
+                            : 'bg-gray-300 text-gray-600'
+                        }`}
+                      >
+                        {index + 1}
+                      </div>
+                      <span>{step}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -147,25 +284,9 @@ int main() {
                 </pre>
               </div>
             </div>
-
-            {/* Interactive Demo Link */}
-            <div className="bg-blue-50 rounded-xl p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Try Interactive Demo</h3>
-                  <p className="text-gray-600">Experience Linear Search with step-by-step visualization</p>
-                </div>
-                <Link 
-                  href="/data-structures/searching/linear-search"
-                  className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
-                >
-                  Launch Demo
-                </Link>
-              </div>
-            </div>
           </div>
 
-          {/* Sidebar */}
+          {/* Info Panel */}
           <div className="space-y-6">
             {/* Complexity Analysis */}
             <div className="bg-white rounded-xl p-6 shadow-sm">
@@ -233,6 +354,23 @@ int main() {
                 </div>
                 <div className="p-2 bg-orange-50 rounded-lg">
                   <span className="font-semibold">Linked lists</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Comparison */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">vs Binary Search</h3>
+              <div className="space-y-3 text-sm">
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="font-semibold text-gray-700 mb-1">Linear Search</div>
+                  <div className="text-gray-600">✓ Unsorted data</div>
+                  <div className="text-gray-600">✗ O(n) time complexity</div>
+                </div>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="font-semibold text-gray-700 mb-1">Binary Search</div>
+                  <div className="text-gray-600">✗ Requires sorted data</div>
+                  <div className="text-gray-600">✓ O(log n) time complexity</div>
                 </div>
               </div>
             </div>

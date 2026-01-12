@@ -1,10 +1,96 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function BinarySearchAlgorithm() {
+export default function BinarySearchPage() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [array, setArray] = useState([11, 22, 25, 34, 50, 64, 76, 88, 90]);
+  const [target, setTarget] = useState(64);
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(8);
+  const [mid, setMid] = useState(-1);
+  const [foundIndex, setFoundIndex] = useState(-1);
   const [selectedLanguage, setSelectedLanguage] = useState('javascript');
+
+  const steps = [
+    'Initialize left = 0, right = n-1',
+    'Calculate mid = left + (right - left) / 2',
+    'Compare arr[mid] with target',
+    'If arr[mid] == target, return mid',
+    'If arr[mid] < target, search right half',
+    'If arr[mid] > target, search left half',
+    'Repeat until left > right'
+  ];
+
+  const runAnimation = async () => {
+    setIsAnimating(true);
+    setCurrentStep(0);
+    setLeft(0);
+    setRight(array.length - 1);
+    setMid(-1);
+    setFoundIndex(-1);
+
+    let l = 0;
+    let r = array.length - 1;
+    let stepCount = 0;
+
+    while (l <= r) {
+      setCurrentStep(1);
+      const m = Math.floor(l + (r - l) / 2);
+      setMid(m);
+      setLeft(l);
+      setRight(r);
+      
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      setCurrentStep(2);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      if (array[m] === target) {
+        setCurrentStep(3);
+        setFoundIndex(m);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        break;
+      } else if (array[m] < target) {
+        setCurrentStep(4);
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        l = m + 1;
+      } else {
+        setCurrentStep(5);
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        r = m - 1;
+      }
+
+      stepCount++;
+      if (stepCount > 10) break; // Prevent infinite loop
+    }
+
+    if (foundIndex === -1) {
+      setCurrentStep(6);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+    setIsAnimating(false);
+  };
+
+  const resetArray = () => {
+    setArray([11, 22, 25, 34, 50, 64, 76, 88, 90]);
+    setTarget(64);
+    setLeft(0);
+    setRight(8);
+    setMid(-1);
+    setFoundIndex(-1);
+    setCurrentStep(0);
+  };
+
+  const getHighlightColor = (index) => {
+    if (foundIndex === index) return 'bg-green-600 text-white border-green-600';
+    if (mid === index) return 'bg-yellow-500 text-white border-yellow-500';
+    if (index >= left && index <= right) return 'bg-blue-100 text-blue-800 border-blue-300';
+    return 'bg-gray-100 text-gray-500 border-gray-200';
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -18,8 +104,8 @@ export default function BinarySearchAlgorithm() {
               </h1>
             </Link>
             <nav className="flex items-center space-x-4">
-              <Link href="/algorithms" className="text-gray-600 hover:text-indigo-600 cursor-pointer">
-                ← Back to Algorithms
+              <Link href="/data-structures/searching" className="text-gray-600 hover:text-indigo-600 cursor-pointer">
+                ← Back to Searching
               </Link>
             </nav>
           </div>
@@ -34,32 +120,128 @@ export default function BinarySearchAlgorithm() {
               <i className="ri-focus-line text-2xl text-green-600"></i>
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">Binary Search Algorithm</h1>
+              <h1 className="text-4xl font-bold text-gray-900">Binary Search</h1>
               <p className="text-gray-600">Divide and conquer search in sorted arrays</p>
             </div>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Algorithm Overview */}
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithm Overview</h2>
-              <div className="prose text-gray-600">
-                <p className="mb-4">
-                  Binary Search is an efficient searching algorithm that works on sorted arrays. It repeatedly divides the search interval in half to find the target value.
-                </p>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">How it works:</h3>
-                <ol className="list-decimal list-inside space-y-2">
-                  <li>Initialize left = 0 and right = n-1</li>
-                  <li>Calculate mid = left + (right - left) / 2</li>
-                  <li>Compare arr[mid] with the target</li>
-                  <li>If arr[mid] == target, return mid</li>
-                  <li>If arr[mid] {'<'} target, search right half (left = mid + 1)</li>
-                  <li>If arr[mid] {'>'} target, search left half (right = mid - 1)</li>
-                  <li>Repeat until left {'>'} right</li>
-                </ol>
+          {/* Visualization Panel */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Interactive Visualization</h2>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={runAnimation}
+                    disabled={isAnimating}
+                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50 cursor-pointer whitespace-nowrap"
+                  >
+                    {isAnimating ? 'Searching...' : 'Start Search'}
+                  </button>
+                  <button
+                    onClick={resetArray}
+                    className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 cursor-pointer whitespace-nowrap"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+              {/* Target Input */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Target Value: {target}
+                </label>
+                <input
+                  type="range"
+                  min="11"
+                  max="90"
+                  step="1"
+                  value={target}
+                  onChange={(e) => setTarget(Number(e.target.value))}
+                  disabled={isAnimating}
+                  className="w-full"
+                />
+              </div>
+
+              {/* Array Visualization */}
+              <div className="mb-8">
+                <div className="flex items-center justify-center space-x-2 mb-4 flex-wrap">
+                  {array.map((value, index) => (
+                    <div key={`${index}-${value}`} className="flex flex-col items-center mb-2">
+                      <div
+                        className={`w-14 h-14 flex items-center justify-center border-2 rounded-lg font-bold text-lg transition-all duration-500 ${getHighlightColor(index)}`}
+                      >
+                        {value}
+                      </div>
+                      <div className="text-xs text-gray-500 mt-1">[{index}]</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Range Indicators */}
+                {(left !== 0 || right !== array.length - 1) && (
+                  <div className="mt-4 text-center text-sm text-gray-600">
+                    <div className="mb-2">
+                      <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                        Search Range: [{left}] to [{right}]
+                      </span>
+                    </div>
+                    {mid !== -1 && (
+                      <div>
+                        <span className="inline-block px-2 py-1 bg-yellow-100 text-yellow-800 rounded">
+                          Mid Index: [{mid}] = {array[mid]}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {foundIndex !== -1 && (
+                  <div className="text-center text-green-600 font-semibold mt-4">
+                    Found {target} at index {foundIndex}!
+                  </div>
+                )}
+
+                {foundIndex === -1 && !isAnimating && currentStep === 6 && (
+                  <div className="text-center text-red-600 font-semibold mt-4">
+                    {target} not found in the array
+                  </div>
+                )}
+              </div>
+
+              {/* Step-by-Step Display */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Algorithm Steps</h3>
+                <div className="space-y-2">
+                  {steps.map((step, index) => (
+                    <div
+                      key={index}
+                      className={`flex items-center p-2 rounded-lg ${
+                        currentStep === index && isAnimating
+                          ? 'bg-indigo-100 text-indigo-800'
+                          : currentStep > index && isAnimating
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-white text-gray-700'
+                      }`}
+                    >
+                      <div
+                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mr-3 ${
+                          currentStep === index && isAnimating
+                            ? 'bg-indigo-600 text-white'
+                            : currentStep > index && isAnimating
+                            ? 'bg-green-600 text-white'
+                            : 'bg-gray-300 text-gray-600'
+                        }`}
+                      >
+                        {index + 1}
+                      </div>
+                      <span>{step}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -191,25 +373,9 @@ int main() {
                 </pre>
               </div>
             </div>
-
-            {/* Interactive Demo Link */}
-            <div className="bg-green-50 rounded-xl p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Try Interactive Demo</h3>
-                  <p className="text-gray-600">Experience Binary Search with step-by-step visualization</p>
-                </div>
-                <Link 
-                  href="/data-structures/searching/binary-search"
-                  className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
-                >
-                  Launch Demo
-                </Link>
-              </div>
-            </div>
           </div>
 
-          {/* Sidebar */}
+          {/* Info Panel */}
           <div className="space-y-6">
             {/* Complexity Analysis */}
             <div className="bg-white rounded-xl p-6 shadow-sm">
@@ -281,7 +447,7 @@ int main() {
               </div>
             </div>
 
-            {/* Performance */}
+            {/* Comparison */}
             <div className="bg-white rounded-xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Performance</h3>
               <div className="space-y-3 text-sm">
