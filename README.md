@@ -1,91 +1,36 @@
-```markdown
-# 📚 DSA-Flow
+# 🚀 DSA-Flow
 
-Welcome to **DSA-Flow**, a structured and beginner-friendly repository for mastering **Data Structures and Algorithms (DSA)**. This repository includes categorized DSA topics with code implementations in C++ and Java to help you build a strong foundation and ace your coding interviews.
+**DSA-Flow** is a simple and structured repository to learn and practice **Data Structures & Algorithms** with clear implementations in **C++ and Java**.
 
-🔗 **Live Preview**: [DSA-Flow Project](https://readdy.link/preview/251857de-30c3-4e53-bec7-4fb37c1e901d/1118315)
-
----
-
-## 🚀 What You'll Find
-
-- ✅ Structured Topic-Wise Practice
-- 📌 Code snippets for each DSA concept
-- 🧠 Easy-to-understand logic and comments
-- 💡 Suitable for interview and competitive programming preparation
+Built to help students strengthen fundamentals and prepare confidently for **coding interviews**.
 
 ---
 
-## 🗂️ Folder Structure
+## 📌 What’s Inside
 
-```
+- Topic-wise DSA problems  
+- Clean and readable code  
+- Beginner-friendly structure  
+- Focused on interview preparation  
 
-DSA-Flow/
-│
-├── Arrays/
-├── Strings/
-├── LinkedList/
-├── Stack/
-├── Queue/
-├── Trees/
-├── Graphs/
-├── Recursion\_Backtracking/
-├── Dynamic\_Programming/
-├── Sorting\_Searching/
-└── Bit\_Manipulation/
+---
 
-````
+## 🗂️ Topics Covered
 
-Each folder contains:
-- 📁 Organized problems
-- 📝 Explanations or comments
-- 💻 Code in C++ or Java (or both)
+Arrays • Strings • Linked List • Stack • Queue • Trees • Graphs  
+Recursion & Backtracking • Dynamic Programming  
+Sorting & Searching • Bit Manipulation
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Languages:** C++, Java
-- **Tools:** VS Code, Git, GitHub
+- **Languages:** C++, Java  
+- **Tools:** Git, GitHub, VS Code  
 
 ---
 
-## ✨ Getting Started
+## 🚀 Getting Started
 
-1. Clone the repository  
-   ```bash
-   git clone https://github.com/ShridhiGupta/DSA-Flow.git
-````
-
-2. Navigate to a topic directory and start practicing!
-
----
-
-## 🎯 Ideal For
-
-* Students preparing for **technical interviews**
-* Beginners learning **DSA from scratch**
-* Participants in **coding contests and hackathons**
-
----
-
-## 🧠 Contribution Guidelines
-
-If you'd like to contribute:
-
-1. Fork the repository
-2. Make your changes (add new problems/solutions or improve existing code)
-3. Submit a pull request 🚀
-
----
-
-## 📌 Author
-
-Made with ❤️ by [Shridhi Gupta](https://github.com/ShridhiGupta)
-
----
-
-## 📢 Support
-
-Give this repo a ⭐ if you find it helpful!
-Feel free to open issues or contribute.
+```bash
+git clone https://github.com/ShridhiGupta/DSA-Flow.git
