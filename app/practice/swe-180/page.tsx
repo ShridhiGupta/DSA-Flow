@@ -9,12 +9,12 @@ export default function SWE180() {
 
   const problems = [
     // Arrays - Basic
-    { id: 1, title: "Set Matrix Zeros", category: "Arrays - Basic", difficulty: "Medium", solved: false },
-    { id: 2, title: "Pascal's Triangle", category: "Arrays - Basic", difficulty: "Easy", solved: false },
-    { id: 3, title: "Next Permutation", category: "Arrays - Basic", difficulty: "Medium", solved: false },
-    { id: 4, title: "Kadane's Algorithm", category: "Arrays - Basic", difficulty: "Easy", solved: false },
-    { id: 5, title: "Sort an array of 0's, 1's and 2's", category: "Arrays - Basic", difficulty: "Easy", solved: false },
-    { id: 6, title: "Stock Buy and Sell", category: "Arrays - Basic", difficulty: "Easy", solved: false },
+    { id: 1, title: "Set Matrix Zeros", category: "Arrays - Basic", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/set-matrix-zeroes/" },
+    { id: 2, title: "Pascal's Triangle", category: "Arrays - Basic", difficulty: "Easy", solved: false, link: "https://leetcode.com/problems/pascals-triangle/" },
+    { id: 3, title: "Next Permutation", category: "Arrays - Basic", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/next-permutation/" },
+    { id: 4, title: "Kadane's Algorithm", category: "Arrays - Basic", difficulty: "Easy", solved: false, link: "https://leetcode.com/problems/maximum-subarray/" },
+    { id: 5, title: "Sort an array of 0's, 1's and 2's", category: "Arrays - Basic", difficulty: "Easy", solved: false, link: "https://leetcode.com/problems/sort-colors/" },
+    { id: 6, title: "Stock Buy and Sell", category: "Arrays - Basic", difficulty: "Easy", solved: false, link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
 
     // Arrays - Part-II
     { id: 7, title: "Rotate Matrix", category: "Arrays - Part-II", difficulty: "Medium", solved: false },
@@ -462,6 +462,17 @@ export default function SWE180() {
                   </div>
                   
                   <div className="flex items-center space-x-3 ml-6">
+                    {problem.link && (
+                      <a 
+                        href={problem.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer whitespace-nowrap"
+                      >
+                        <i className="ri-external-link-line mr-2"></i>
+                        Practice
+                      </a>
+                    )}
                     <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors cursor-pointer whitespace-nowrap">
                       {problem.solved ? 'Review' : 'Start'}
                     </button>
