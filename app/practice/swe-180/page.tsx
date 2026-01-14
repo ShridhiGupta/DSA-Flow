@@ -91,21 +91,21 @@ export default function SWE180() {
 
     // Binary Search
     { id: 61, title: "The N-th Root of an Integer", category: "Binary Search", difficulty: "Easy", solved: false, link: "https://www.geeksforgeeks.org/problems/find-nth-root-of-m5843/1" },
-    { id: 62, title: "Matrix Median", category: "Binary Search", difficulty: "Medium", solved: false },
+    { id: 62, title: "Matrix Median", category: "Binary Search", difficulty: "Medium", solved: false, link: "https://www.geeksforgeeks.org/dsa/find-median-row-wise-sorted-matrix/" },
     { id: 63, title: "Find Element That Appears Once in a Sorted Array", category: "Binary Search", difficulty: "Easy", solved: false, link: "https://leetcode.com/problems/single-element-in-a-sorted-array/" },
-    { id: 64, title: "Search Element in a Sorted and Rotated Array", category: "Binary Search", difficulty: "Medium", solved: false },
-    { id: 65, title: "Median of Two Sorted Arrays", category: "Binary Search", difficulty: "Hard", solved: false },
-    { id: 66, title: "K-th Element of Two Sorted Arrays", category: "Binary Search", difficulty: "Medium", solved: false },
-    { id: 67, title: "Allocate Minimum Number of Pages", category: "Binary Search", difficulty: "Hard", solved: false },
-    { id: 68, title: "Aggressive Cows", category: "Binary Search", difficulty: "Hard", solved: false },
+    { id: 64, title: "Search Element in a Sorted and Rotated Array", category: "Binary Search", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/search-in-rotated-sorted-array/" },
+    { id: 65, title: "Median of Two Sorted Arrays", category: "Binary Search", difficulty: "Hard", solved: false, link: "https://leetcode.com/problems/median-of-two-sorted-arrays/" },
+    { id: 66, title: "K-th Element of Two Sorted Arrays", category: "Binary Search", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/" },
+    { id: 67, title: "Allocate Minimum Number of Pages", category: "Binary Search", difficulty: "Hard", solved: false, link: "https://leetcode.com/problems/allocate-minimum-number-of-pages/" },
+    { id: 68, title: "Aggressive Cows", category: "Binary Search", difficulty: "Hard", solved: false, link: "https://leetcode.com/problems/maximum-number-of-achievable-x/" },
 
     // Heaps
-    { id: 69, title: "Max Heap and Min Heap Implementation (Interview Only)", category: "Heaps", difficulty: "Medium", solved: false },
-    { id: 70, title: "Kth Largest Element", category: "Heaps", difficulty: "Easy", solved: false },
-    { id: 71, title: "Maximum Sum Combination", category: "Heaps", difficulty: "Medium", solved: false },
-    { id: 72, title: "Find Median from Data Stream", category: "Heaps", difficulty: "Hard", solved: false },
-    { id: 73, title: "Merge K Sorted Arrays", category: "Heaps", difficulty: "Hard", solved: false },
-    { id: 74, title: "K Most Frequent Elements", category: "Heaps", difficulty: "Medium", solved: false },
+    { id: 69, title: "Max Heap and Min Heap Implementation (Interview Only)", category: "Heaps", difficulty: "Medium", solved: false, link: "https://www.geeksforgeeks.org/heap-data-structure/" },
+    { id: 70, title: "Kth Largest Element", category: "Heaps", difficulty: "Easy", solved: false, link: "https://leetcode.com/problems/kth-largest-element-in-an-array/" },
+    { id: 71, title: "Maximum Sum Combination", category: "Heaps", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/maximum-sum-combination/" },
+    { id: 72, title: "Find Median from Data Stream", category: "Heaps", difficulty: "Hard", solved: false, link: "https://leetcode.com/problems/find-median-from-data-stream/" },
+    { id: 73, title: "Merge K Sorted Arrays", category: "Heaps", difficulty: "Hard", solved: false, link: "https://leetcode.com/problems/merge-k-sorted-arrays/" },
+    { id: 74, title: "K Most Frequent Elements", category: "Heaps", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/top-k-frequent-elements/" },
 
     // Stack & Queue
     { id: 75, title: "Implement Stack Using Arrays", category: "Stack & Queue", difficulty: "Easy", solved: false, link: "https://www.geeksforgeeks.org/problems/implement-stack-using-array/1" },
@@ -178,13 +178,13 @@ export default function SWE180() {
     { id: 130, title: "Check for Children Sum Property", category: "Binary Tree - Part-III", difficulty: "Easy", solved: false },
 
     // Binary Search Tree (BST)
-    { id: 131, title: "Populate Next Right Pointers of Tree", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false },
-    { id: 132, title: "Search Given Key in BST", category: "Binary Search Tree (BST)", difficulty: "Easy", solved: false },
-    { id: 133, title: "Construct BST from Given Keys", category: "Binary Search Tree (BST)", difficulty: "Easy", solved: false },
-    { id: 134, title: "Construct a BST from a Preorder Traversal", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false },
-    { id: 135, title: "Check if a Binary Tree is BST", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false },
-    { id: 136, title: "Find LCA of Two Nodes in BST", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false },
-    { id: 137, title: "Find Inorder Predecessor/Successor of a Given Key in BST", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false },
+    { id: 131, title: "Populate Next Right Pointers of Tree", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/populating-next-right-pointers-in-each-node/"},
+    { id: 132, title: "Search Given Key in BST", category: "Binary Search Tree (BST)", difficulty: "Easy", solved: false, link: "https://leetcode.com/problems/search-in-a-binary-search-tree/" },
+    { id: 133, title: "Construct BST from Given Keys", category: "Binary Search Tree (BST)", difficulty: "Easy", solved: false, link: "https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/" },
+    { id: 134, title: "Construct a BST from a Preorder Traversal", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/" },
+    { id: 135, title: "Check if a Binary Tree is BST", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/validate-binary-search-tree/" },
+    { id: 136, title: "Find LCA of Two Nodes in BST", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" },
+    { id: 137, title: "Find Inorder Predecessor/Successor of a Given Key in BST", category: "Binary Search Tree (BST)", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/inorder-successor-in-bst/" },
 
     // BST - Part-II
     { id: 138, title: "Floor in a BST", category: "BST - Part-II", difficulty: "Medium", solved: false , link: "https://www.geeksforgeeks.org/problems/floor-in-bst/1"},
@@ -233,7 +233,7 @@ export default function SWE180() {
     { id: 173, title: "0-1 Knapsack", category: "Dynamic Programming (DP)", difficulty: "Medium", solved: false , link: "https://leetcode.com/problems/coin-change-2/" },
     { id: 174, title: "Edit Distance", category: "Dynamic Programming (DP)", difficulty: "Hard", solved: false , link: "https://leetcode.com/problems/edit-distance/" },
     { id: 175, title: "Maximum Sum Increasing Subsequence", category: "Dynamic Programming (DP)", difficulty: "Medium", solved: false , link: "https://practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence4749/1" },
-    { id: 176, title: "Matrix Chain Multiplication", category: "Dynamic Programming (DP)", difficulty: "Hard", solved: false },
+    { id: 176, title: "Matrix Chain Multiplication", category: "Dynamic Programming (DP)", difficulty: "Hard", solved: false, link: "https://practice.geeksforgeeks.org/problems/minimum-spanning-tree/1" },
 
     // Dynamic Programming - Part-II
     { id: 177, title: "Minimum Sum Path in a Matrix (including path count & backtracking)", category: "Dynamic Programming - Part-II", difficulty: "Medium", solved: false, link: "https://leetcode.com/problems/minimum-path-sum/" },
