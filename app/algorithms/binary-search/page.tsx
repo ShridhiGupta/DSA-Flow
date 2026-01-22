@@ -85,7 +85,7 @@ export default function BinarySearchPage() {
     setCurrentStep(0);
   };
 
-  const getHighlightColor = (index) => {
+  const getHighlightColor = (index: number): string => {
     if (foundIndex === index) return 'bg-green-600 text-white border-green-600';
     if (mid === index) return 'bg-yellow-500 text-white border-yellow-500';
     if (index >= left && index <= right) return 'bg-blue-100 text-blue-800 border-blue-300';
