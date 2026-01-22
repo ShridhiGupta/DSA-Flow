@@ -1241,7 +1241,7 @@ int main() {
               {/* Code Display */}
               <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
                 <pre className="text-green-400 text-sm">
-                  {codeSnippets[selectedLanguage]?.[selectedOperation] || '// Select an operation and language'}
+                  {(codeSnippets[selectedLanguage as keyof typeof codeSnippets] as Record<string, string>)?.[selectedOperation] || '// Select an operation and language'}
                 </pre>
               </div>
             </div>
