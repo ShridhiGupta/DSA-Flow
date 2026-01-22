@@ -315,45 +315,6 @@ export default function Algorithms() {
           </div>
         </div>
 
-        {/* Algorithm Categories */}
-        <div className="mt-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Algorithm Categories</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
-                  <i className="ri-share-line text-indigo-600"></i>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900">Graph Algorithms</h3>
-              </div>
-              <p className="text-gray-600 text-sm mb-3">
-                Algorithms for solving problems on graph data structures
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded">Traversal</span>
-                <span className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded">Shortest Path</span>
-                <span className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded">Spanning Trees</span>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                  <i className="ri-cpu-line text-purple-600"></i>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900">More Coming Soon</h3>
-              </div>
-              <p className="text-gray-600 text-sm mb-3">
-                Additional algorithm categories will be added in future updates
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">Dynamic Programming</span>
-                <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">Greedy</span>
-                <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">Divide & Conquer</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
