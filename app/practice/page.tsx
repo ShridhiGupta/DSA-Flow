@@ -1,45 +1,85 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Practice() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center">
-              <h1 className="text-2xl font-bold text-indigo-600" style={{fontFamily: "Pacifico, serif"}}>
+              <h1 className="text-xl sm:text-2xl font-bold text-indigo-600" style={{fontFamily: "Pacifico, serif"}}>
                 DSA Flow
               </h1>
             </Link>
-            <nav className="flex space-x-8">
-              <Link href="/data-structures" className="text-gray-700 hover:text-indigo-600 font-medium cursor-pointer">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex space-x-6 lg:space-x-8">
+              <Link href="/data-structures" className="text-gray-700 hover:text-indigo-600 font-medium cursor-pointer text-sm lg:text-base">
                 Data Structures
               </Link>
-              <Link href="/algorithms" className="text-gray-700 hover:text-indigo-600 font-medium cursor-pointer">
+              <Link href="/algorithms" className="text-gray-700 hover:text-indigo-600 font-medium cursor-pointer text-sm lg:text-base">
                 Algorithms
               </Link>
-              <Link href="/practice" className="text-indigo-600 font-medium">
+              <Link href="/practice" className="text-indigo-600 font-medium text-sm lg:text-base">
                 Practice
               </Link>
             </nav>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100"
+              aria-label="Toggle menu"
+            >
+              <i className={`ri-${mobileMenuOpen ? 'close' : 'menu'}-line text-2xl`}></i>
+            </button>
           </div>
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <nav className="md:hidden mt-4 pb-4 border-t border-gray-200">
+              <div className="flex flex-col space-y-3 pt-4">
+                <Link 
+                  href="/data-structures" 
+                  className="text-gray-700 hover:text-indigo-600 font-medium py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Data Structures
+                </Link>
+                <Link 
+                  href="/algorithms" 
+                  className="text-gray-700 hover:text-indigo-600 font-medium py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Algorithms
+                </Link>
+                <Link 
+                  href="/practice" 
+                  className="text-indigo-600 font-medium py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Practice
+                </Link>
+              </div>
+            </nav>
+          )}
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Practice Problems</h1>
-          <p className="text-xl text-gray-600">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Practice Problems</h1>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600">
             Master data structures and algorithms with our curated problem sets
           </p>
         </div>
 
         {/* Practice Sections */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {/* Easy-100 Beginner Problems */}
           <Link href="/practice/easy-100">
             <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-green-300 group">
@@ -144,9 +184,9 @@ export default function Practice() {
         </div>
 
         {/* Features Section */}
-        <div className="bg-white rounded-xl p-8 shadow-sm mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Practice with DSA Flow?</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Why Practice with DSA Flow?</h2>
+          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             <div className="text-center">
               <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i className="ri-play-circle-line text-2xl text-indigo-600"></i>
@@ -178,9 +218,9 @@ export default function Practice() {
         </div>
 
         {/* Getting Started */}
-        <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Getting Started</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+        <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-6 sm:p-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Getting Started</h2>
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Choose Your Path</h3>
               <ul className="space-y-2 text-gray-600">

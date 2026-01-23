@@ -2,38 +2,78 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Link href="/" className="flex items-center">
-                <h1 className="text-2xl font-bold text-indigo-600" style={{fontFamily: "Pacifico, serif"}}>
+                <h1 className="text-xl sm:text-2xl font-bold text-indigo-600" style={{fontFamily: "Pacifico, serif"}}>
                   DSA Flow
                 </h1>
               </Link>
             </div>
-            <nav className="flex space-x-8">
-              <Link href="/data-structures" className="text-gray-700 hover:text-indigo-600 font-medium">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex space-x-6 lg:space-x-8">
+              <Link href="/data-structures" className="text-gray-700 hover:text-indigo-600 font-medium text-sm lg:text-base">
                 Data Structures
               </Link>
-              <Link href="/algorithms" className="text-gray-700 hover:text-indigo-600 font-medium">
+              <Link href="/algorithms" className="text-gray-700 hover:text-indigo-600 font-medium text-sm lg:text-base">
                 Algorithms
               </Link>
-              <Link href="/practice" className="text-gray-700 hover:text-indigo-600 font-medium">
+              <Link href="/practice" className="text-gray-700 hover:text-indigo-600 font-medium text-sm lg:text-base">
                 Practice
               </Link>
             </nav>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100"
+              aria-label="Toggle menu"
+            >
+              <i className={`ri-${mobileMenuOpen ? 'close' : 'menu'}-line text-2xl`}></i>
+            </button>
           </div>
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <nav className="md:hidden mt-4 pb-4 border-t border-gray-200">
+              <div className="flex flex-col space-y-3 pt-4">
+                <Link 
+                  href="/data-structures" 
+                  className="text-gray-700 hover:text-indigo-600 font-medium py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Data Structures
+                </Link>
+                <Link 
+                  href="/algorithms" 
+                  className="text-gray-700 hover:text-indigo-600 font-medium py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Algorithms
+                </Link>
+                <Link 
+                  href="/practice" 
+                  className="text-gray-700 hover:text-indigo-600 font-medium py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Practice
+                </Link>
+              </div>
+            </nav>
+          )}
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 px-6">
+      <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -43,25 +83,25 @@ export default function Home() {
           <div className="absolute inset-0 bg-white/80"></div>
         </div>
         <div className="relative container mx-auto text-center">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 px-2">
               Master <span className="text-indigo-600">Data Structures</span> & <span className="text-indigo-600">Algorithms</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
               Learn with interactive visualizations, step-by-step animations, and real-time complexity analysis. 
               From basic data structures to advanced problem-solving techniques.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
             <Link 
               href="/data-structures" 
-              className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors whitespace-nowrap cursor-pointer"
+              className="bg-indigo-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors whitespace-nowrap cursor-pointer text-sm sm:text-base"
             >
               Start Learning
             </Link>
             <Link 
               href="/practice" 
-              className="border-2 border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition-colors whitespace-nowrap cursor-pointer"
+              className="border-2 border-indigo-600 text-indigo-600 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-indigo-50 transition-colors whitespace-nowrap cursor-pointer text-sm sm:text-base"
             >
               Practice Problems
             </Link>
@@ -70,12 +110,12 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 bg-white">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12">
             Why Choose DSA Flow?
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center p-6 rounded-lg bg-blue-50">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i className="ri-play-circle-line text-2xl text-blue-600"></i>
@@ -108,12 +148,12 @@ export default function Home() {
       </section>
 
       {/* Learning Paths */}
-      <section className="py-16 px-6 bg-gray-50">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 bg-gray-50">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12">
             Choose Your Learning Path
           </h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
             <Link href="/data-structures" className="group cursor-pointer">
               <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-shadow">
                 <div className="flex items-center mb-4">
@@ -184,46 +224,46 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 bg-white">
         <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-indigo-600 mb-2">22+</div>
-              <div className="text-gray-600">Data Structures</div>
+              <div className="text-2xl sm:text-3xl font-bold text-indigo-600 mb-2">22+</div>
+              <div className="text-sm sm:text-base text-gray-600">Data Structures</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">12+</div>
-              <div className="text-gray-600">Algorithms</div>
+              <div className="text-2xl sm:text-3xl font-bold text-green-600 mb-2">12+</div>
+              <div className="text-sm sm:text-base text-gray-600">Algorithms</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600 mb-2">100+</div>
-              <div className="text-gray-600">Visualizations</div>
+              <div className="text-2xl sm:text-3xl font-bold text-purple-600 mb-2">100+</div>
+              <div className="text-sm sm:text-base text-gray-600">Visualizations</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-600 mb-2">50+</div>
-              <div className="text-gray-600">Practice Problems</div>
+              <div className="text-2xl sm:text-3xl font-bold text-orange-600 mb-2">50+</div>
+              <div className="text-sm sm:text-base text-gray-600">Practice Problems</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-6">
+      <footer className="bg-gray-900 text-white py-8 sm:py-12 px-4 sm:px-6">
         <div className="container mx-auto text-center">
-          <h3 className="text-2xl font-bold mb-4" style={{fontFamily: "Pacifico, serif"}}>
+          <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style={{fontFamily: "Pacifico, serif"}}>
             DSA Flow
           </h3>
-          <p className="text-gray-400 mb-6">
+          <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 px-4">
             Master Data Structures and Algorithms through Interactive Learning
           </p>
-          <div className="flex justify-center space-x-6">
-            <Link href="/data-structures" className="text-gray-400 hover:text-white transition-colors">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6">
+            <Link href="/data-structures" className="text-gray-400 hover:text-white transition-colors text-sm sm:text-base">
               Data Structures
             </Link>
-            <Link href="/algorithms" className="text-gray-400 hover:text-white transition-colors">
+            <Link href="/algorithms" className="text-gray-400 hover:text-white transition-colors text-sm sm:text-base">
               Algorithms
             </Link>
-            <Link href="/practice" className="text-gray-400 hover:text-white transition-colors">
+            <Link href="/practice" className="text-gray-400 hover:text-white transition-colors text-sm sm:text-base">
               Practice
             </Link>
           </div>
