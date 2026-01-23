@@ -9,7 +9,7 @@ export default function Easy100() {
 
   const problems = [
     // Arrays & Searching
-    { id: 1, title: "Find the second largest element in an array", category: "Arrays & Searching", difficulty: "Easy", solved: false },
+    { id: 1, title: "Find the second largest element in an array", category: "Arrays & Searching", difficulty: "Easy", solved: false, path: "/practice/easy-100/second-largest-element" },
     { id: 2, title: "Remove duplicates from a sorted array in-place", category: "Arrays & Searching", difficulty: "Easy", solved: false },
     { id: 3, title: "Move all zeros to the end (stable)", category: "Arrays & Searching", difficulty: "Easy", solved: false },
     { id: 4, title: "Find missing number in range 1..n", category: "Arrays & Searching", difficulty: "Easy", solved: false },
@@ -335,9 +335,18 @@ export default function Easy100() {
                   </div>
                   
                   <div className="flex items-center space-x-3 ml-6">
-                    <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors cursor-pointer whitespace-nowrap">
-                      {problem.solved ? 'Review' : 'Start'}
-                    </button>
+                    {problem.path ? (
+                      <Link 
+                        href={problem.path}
+                        className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors cursor-pointer whitespace-nowrap"
+                      >
+                        {problem.solved ? 'Review' : 'Start'}
+                      </Link>
+                    ) : (
+                      <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors cursor-pointer whitespace-nowrap">
+                        {problem.solved ? 'Review' : 'Start'}
+                      </button>
+                    )}
                     <button className="p-2 text-gray-400 hover:text-gray-600 cursor-pointer">
                       <i className="ri-bookmark-line"></i>
                     </button>
