@@ -55,7 +55,6 @@ print(second_largest(arr))`,
 public class Solution {
     public static int secondLargest(int[] arr) {
         // Write your code here
-        
         return -1;
     }
     
@@ -76,7 +75,6 @@ using namespace std;
 
 int secondLargest(vector<int>& arr) {
     // Write your code here
-    
     return -1;
 }
 
@@ -92,7 +90,6 @@ int main() {
 }`,
   javascript: `function secondLargest(arr) {
     // Write your code here
-    
     return -1;
 }
 
