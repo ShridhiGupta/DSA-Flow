@@ -6,7 +6,7 @@ Built to help students strengthen fundamentals and prepare confidently for **cod
 
 ---
 
-## 📌 What’s Inside
+## What’s Inside
 
 - Topic-wise DSA problems  
 - Clean and readable code  
@@ -15,7 +15,7 @@ Built to help students strengthen fundamentals and prepare confidently for **cod
 
 ---
 
-## 🗂️ Topics Covered
+## Topics Covered
 
 Arrays • Strings • Linked List • Stack • Queue • Trees • Graphs  
 Recursion & Backtracking • Dynamic Programming  
@@ -23,14 +23,21 @@ Sorting & Searching • Bit Manipulation
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Languages:** C++, Java  
 - **Tools:** Git, GitHub, VS Code  
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
+### Clone
 ```bash
 git clone https://github.com/ShridhiGupta/DSA-Flow.git
+```
+
+### Run the Server
+```bash
+npm run dev
+```
