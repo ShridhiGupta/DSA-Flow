@@ -1,4 +1,4 @@
-# 🚀 DSA-Flow
+# DSA-Flow
 
 **DSA-Flow** is a simple and structured repository to learn and practice **Data Structures & Algorithms** with clear implementations in **C++ and Java**.
 
